@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PILOT 2</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Geologic, sans-serif;
+        }
+
+        .cover {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+            background-color: #5656cf;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        h1 > span {
+            position: relative;
+            display: inline-block;
+        }
+
+        h1 > span > .prof-text {
+            display: inline-block;
+            position: relative;
+            font-weight: 600;
+            border-right: 2px solid #57ff03;
+            color: #57ff03;
+            white-space: nowrap;
+            vertical-align: bottom;
+            overflow: hidden;
+            animation: blink .8s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                border-color: #57ff03;
+            }
+
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cover {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="cover">
+    <h1>
+        Hi, I'm BMAsekunowo, I am a
+
+        <span>
+            <span class="prof-text">
+                
+            </span>
+        </span>
+    </h1>
+   </div>
+
+    <script>
+        const text = document.querySelector('.prof-text');
+
+        roles = [
+            'FullStack Developer',
+            'Financial Analyst',
+            'Business Developer',
+            'Freelancer',
+            'Crypto & Trading Ethusiast'
+        ];
+
+        roleIdx = 0;
+        charIdx = 0;
+        deleting = false;
+
+        const typingSpeed = 70;
+        const deletingSpeed = 45;
+        const holdAfterType = 1200;
+        const holdAfterDelete = 300;
+
+        const tick = () => {
+            const word = roles[roleIdx]
+
+            if (!deleting) {
+                text.textContent = word.slice(0, ++charIdx)
+
+                if (charIdx === word.length) {
+                deleting = true;
+                return setTimeout (tick, holdAfterType)
+                }
+
+                return setTimeout(tick, typingSpeed)
+                
+            }
+
+            else {
+                text.textContent = word.slice(0, --charIdx);
+
+                if(charIdx === 0) {
+                    deleting = false;
+
+                    roleIdx = (roleIdx + 1) % roles.length;
+                    return setTimeout (tick, holdAfterDelete);
+                }
+
+                return setTimeout(tick, deletingSpeed)
+            }    
+        }
+
+        tick();
+    </script>
+</body>
+</html>
